@@ -9,7 +9,7 @@ const envSchema = z.object({
   DATABASE_PATH: z.string().default('./triagedesk.sqlite'),
   TRIAGE_PROVIDER: z.enum(['mock', 'claude']).default('mock'),
   ANTHROPIC_API_KEY: z.string().optional().default(''),
-  CLAUDE_MODEL: z.string().default('claude-3-7-sonnet-20250219'),
+  CLAUDE_MODEL: z.string().default('claude-sonnet-4-6'),
 });
 
 export const config = envSchema.parse(process.env);

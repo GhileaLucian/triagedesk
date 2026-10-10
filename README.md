@@ -7,13 +7,13 @@
 [![SQLite](https://img.shields.io/badge/SQLite-better--sqlite3-003B57.svg)](https://sqlite.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-> **Autonomous AI support ticket triage platform.** Ingests unstructured customer inquiries, classifies category and priority using Claude 3.7 / keyword mock rules with prompt injection defense, and provides an actionable React 19 dashboard for support teams.
+> **AI-assisted support ticket triage.** Ingests unstructured customer inquiries, classifies category and priority using Claude API / keyword mock rules with prompt injection defense, and provides an actionable React 19 dashboard for support teams.
 
 ---
 
 ## Features
 
-- **Agentic AI Classification**: Powered by Claude API (`CLAUDE_MODEL=claude-3-7-sonnet-20250219`) via a pluggable `TriageProvider` architecture with schema validation and retry logic.
+- **AI Classification**: Powered by Claude API (configurable via `CLAUDE_MODEL`) via a pluggable `TriageProvider` architecture with schema validation and retry logic.
 - **Offline Mock Provider**: Out-of-the-box deterministic keyword classifier (`TRIAGE_PROVIDER=mock`) requiring zero API keys for local development and CI testing.
 - **Prompt Injection Defense**: Explicit system prompt sandboxing isolating untrusted user text from execution instructions.
 - **Fail-Safe Fallback**: Automatic 2-attempt retry loop falling back to `"other/medium"` with a persistent `needs_review: 1` badge on LLM rate-limit or timeout.
@@ -40,7 +40,7 @@ flowchart TD
         ExpressAPI --> TriageProv["TriageProvider Interface"]
         TriageProv -->|mock| Mock["MockProvider - Keyword Rules"]
         TriageProv -->|claude| Claude["ClaudeProvider - anthropic-ai/sdk"]
-        Claude -->|10s timeout| AnthropicAPI["Anthropic Claude 3.7 API"]
+        Claude -->|10s timeout| AnthropicAPI["Anthropic Claude API"]
         Claude -->|retry failure| Fallback["Fallback - needs_review flag"]
     end
 ```
@@ -66,7 +66,7 @@ npm --prefix client install
 cp .env.example .env
 ```
 
-By default, `TRIAGE_PROVIDER=mock` is active and requires no API key. To use Claude 3.7, set `TRIAGE_PROVIDER=claude` and add your `ANTHROPIC_API_KEY`.
+By default, `TRIAGE_PROVIDER=mock` is active and requires no API key. To use Claude API, set `TRIAGE_PROVIDER=claude` and add your `ANTHROPIC_API_KEY`.
 
 ### 3. Seed Database and Launch
 
@@ -88,7 +88,7 @@ Open `http://localhost:5173` in your browser.
 | `DATABASE_PATH` | `./triagedesk.sqlite` | SQLite database file path |
 | `TRIAGE_PROVIDER` | `mock` | Triage classifier: `mock` (offline keyword rules) or `claude` |
 | `ANTHROPIC_API_KEY` | *(empty)* | Anthropic API key from `console.anthropic.com` |
-| `CLAUDE_MODEL` | `claude-3-7-sonnet-20250219` | Anthropic model identifier |
+| `CLAUDE_MODEL` | `claude-sonnet-4-6` | Anthropic model identifier |
 
 ---
 

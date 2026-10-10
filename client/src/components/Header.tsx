@@ -23,7 +23,7 @@ export const Header: React.FC<HeaderProps> = ({ onNewTicket, onRefresh, isLoadin
       <div className="header-actions">
         <div className="provider-badge" title="Active AI Triage Provider">
           <span className="provider-dot" />
-          <span>Claude 3.7 / Mock Active</span>
+          <span>Claude API / Mock Active</span>
         </div>
 
         <button
