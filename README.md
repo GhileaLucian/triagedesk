@@ -11,7 +11,7 @@
 
 ---
 
-## ⚡ Features
+## Features
 
 - **Agentic AI Classification**: Powered by Claude API (`CLAUDE_MODEL=claude-3-7-sonnet-20250219`) via a pluggable `TriageProvider` architecture with schema validation and retry logic.
 - **Offline Mock Provider**: Out-of-the-box deterministic keyword classifier (`TRIAGE_PROVIDER=mock`) requiring zero API keys for local development and CI testing.
@@ -23,31 +23,31 @@
 
 ---
 
-## 🏗 Architecture
+## Architecture
 
 ```mermaid
 flowchart TD
-    User["👤 Support Agent / Client"] -->|Vite Dev Server (Port 5173)| ReactUI["⚛️ React 19 SPA (client/)"]
-    ReactUI -->|REST /api Proxy| ExpressAPI["🚀 Express + TypeScript (server/)"]
+    User["Support Agent / Client"] -->|Vite Dev Server (Port 5173)| ReactUI["React 19 SPA (client/)"]
+    ReactUI -->|REST /api Proxy| ExpressAPI["Express + TypeScript (server/)"]
 
     subgraph Backend ["Backend & Data Integrity"]
-        ExpressAPI -->|Zod Validation| Schemas["🛡️ Zod Validation Schemas"]
-        Schemas --> Repo["📦 Ticket Repository"]
-        Repo --> SQLite[("💾 SQLite Database (better-sqlite3)")]
+        ExpressAPI -->|Zod Validation| Schemas["Zod Validation Schemas"]
+        Schemas --> Repo["Ticket Repository"]
+        Repo --> SQLite[("SQLite Database (better-sqlite3)")]
     end
 
     subgraph AISubsystem ["AI Triage Subsystem"]
-        ExpressAPI -->|Dispatch| TriageProv["🔀 TriageProvider Interface"]
-        TriageProv -->|TRIAGE_PROVIDER=mock| Mock["🔍 Deterministic MockProvider (Keyword Rules)"]
-        TriageProv -->|TRIAGE_PROVIDER=claude| Claude["🤖 ClaudeProvider (@anthropic-ai/sdk)"]
-        Claude -->|Prompt-Injected Defense & 10s Timeout| AnthropicAPI["☁️ Anthropic Claude 3.7 API"]
-        Claude -->|Retry Failure / Malformed JSON| Fallback["⚠️ Fallback (needs_review: 1)"]
+        ExpressAPI -->|Dispatch| TriageProv["TriageProvider Interface"]
+        TriageProv -->|TRIAGE_PROVIDER=mock| Mock["Deterministic MockProvider (Keyword Rules)"]
+        TriageProv -->|TRIAGE_PROVIDER=claude| Claude["ClaudeProvider (@anthropic-ai/sdk)"]
+        Claude -->|Prompt-Injected Defense & 10s Timeout| AnthropicAPI["Anthropic Claude 3.7 API"]
+        Claude -->|Retry Failure / Malformed JSON| Fallback["Fallback (needs_review: 1)"]
     end
 ```
 
 ---
 
-## 🚀 Quick Start (3 Steps)
+## Quick Start (3 Steps)
 
 ### 1. Clone & Install
 ```bash
@@ -79,7 +79,7 @@ Open your browser at **`http://localhost:5173`**.
 
 ---
 
-## ⚙️ Environment Variables
+## Environment Variables
 
 | Variable | Default | Description |
 |---|---|---|
@@ -92,7 +92,7 @@ Open your browser at **`http://localhost:5173`**.
 
 ---
 
-## 📡 REST API Reference
+## REST API Reference
 
 | Method | Endpoint | Description |
 |---|---|---|
@@ -106,7 +106,7 @@ Open your browser at **`http://localhost:5173`**.
 
 ---
 
-## 🧪 Testing Suite
+## Testing Suite
 
 Run full automated tests (server + client) with one command from the project root:
 
@@ -119,7 +119,7 @@ npm test
 
 ---
 
-## 🤖 How I Used Claude Code
+## How I Used Claude Code
 
 I built TriageDesk using Anthropic's **Claude Code** agentic CLI workflow as a pair-programming partner:
 - **Architecture Scaffolding**: Prompted Claude Code to generate initial Express TypeScript templates, repository patterns, and React component structures.
