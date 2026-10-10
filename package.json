@@ -1,0 +1,26 @@
+{
+  "name": "triagedesk",
+  "version": "0.1.0",
+  "description": "AI-powered support ticket triage application (Express + React 19 + Claude API)",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently -n server,client \"npm --prefix server run dev\" \"npm --prefix client run dev\"",
+    "test": "npm --prefix server test && npm --prefix client test",
+    "seed": "npm --prefix server run seed",
+    "build": "npm --prefix client run build"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  },
+  "keywords": [
+    "nodejs",
+    "react",
+    "typescript",
+    "claude",
+    "ai-agents",
+    "ticket-triage",
+    "sqlite"
+  ],
+  "author": "Dan Lucian Ghilea",
+  "license": "MIT"
+}
